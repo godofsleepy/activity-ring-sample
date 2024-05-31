@@ -6,16 +6,23 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct ContentView: View {
+    let hkActivitySummary = {
+        let summary = HKActivitySummary()
+        summary.activeEnergyBurned = HKQuantity(unit: .kilocalorie(), doubleValue: 100)
+        summary.activeEnergyBurnedGoal = HKQuantity(unit: .kilocalorie(), doubleValue: 300)
+        summary.appleExerciseTime = HKQuantity(unit: .minute(), doubleValue: 5)
+        summary.appleExerciseTimeGoal = HKQuantity(unit: .minute(), doubleValue: 30)
+        summary.appleStandHours = HKQuantity(unit: .count(), doubleValue: 2)
+        summary.appleStandHoursGoal = HKQuantity(unit: .count(), doubleValue: 8)
+        return summary
+    }()
+
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        ActivityRingViewRepresentable(activitySummary: hkActivitySummary)
     }
 }
 
